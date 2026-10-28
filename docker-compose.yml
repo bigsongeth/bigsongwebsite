@@ -33,7 +33,7 @@ services:
       - NEXT_PUBLIC_OSS_REGION=${NEXT_PUBLIC_OSS_REGION}
       - NEXT_PUBLIC_OSS_BUCKET=${NEXT_PUBLIC_OSS_BUCKET}
       - NEXT_PUBLIC_OSS_ENDPOINT=${NEXT_PUBLIC_OSS_ENDPOINT}
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/bigsong
+      - DATABASE_URL=${DATABASE_URL:?Set DATABASE_URL at runtime}
     depends_on:
       db:
         condition: service_healthy
@@ -47,7 +47,7 @@ services:
     image: postgres:15-alpine
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD at runtime}
       - POSTGRES_DB=bigsong
     volumes:
       - postgres_data:/var/lib/postgresql/data
